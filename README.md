@@ -54,3 +54,10 @@ options:
          Delete an existing computer.
 
 ```
+
+# Purpose
+
+
+# Ethical Only
+The intended use of InvokeRogueDC is strictly for educational purposes, promoting ethical understanding and responsible learning in the realm of cybersecurity. This tool is not meant for any malicious activities or unauthorized access.
+Using this tool against hosts that you do not have explicit permission to test is illegal. You are responsible for any trouble you may cause by using this tool.
