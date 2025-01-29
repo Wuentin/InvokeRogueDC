@@ -117,7 +117,7 @@ def ldap_create_computer(conn, computer_name, computer_pass, domain):
             }
         )
         if result:
-            print(f"[+] Successfully created computer account: {computer_name}$ with password {computer_pass}")
+            print(f"[+] Successfully created computer account: {computer_name}$ with password: {computer_pass}")
         else:
             print(f"[-] Error creating a machine account. Probably insufficient privileges.")
             print(conn.result)
@@ -125,9 +125,12 @@ def ldap_create_computer(conn, computer_name, computer_pass, domain):
         print(f"[-] Failed to create computer account: {e}")
 
 def generatePassword():
-        return ''.join(random.choice(string.ascii_uppercase + string.digits+ string.punctuation + string.ascii_lowercase)  for _ in range(32))
+    return ''.join(random.choice(string.ascii_uppercase + string.digits+ string.punctuation + string.ascii_lowercase)  for _ in range(32))
 
 def delete_computer(conn,computer_name,domain):
+    """
+    Delete a computer account in the LDAP directory.
+    """
     if not computer_name :
         raise ValueError("[-] Computer name is required.")
 
@@ -178,9 +181,9 @@ def invoke_ascii_art():
     return ascii_art
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Connect to an LDAP server using NTLM or Kerberos authentication.")
+    parser = argparse.ArgumentParser(description="Create a computer account that will act as a domain controller.")
     parser.add_argument("--dc-host", required=True, help="Domain Controller.")
-    parser.add_argument("--ldap-encryption", default="ldap-starttls", choices=["ldaps", "ldap-starttls"], help="LDAP encryption method.")
+    parser.add_argument("--ldap-encryption", default="ldap-starttls", choices=["ldaps", "ldap-starttls"], help="LDAP encryption method (Default : ldap-starttls).")
     parser.add_argument("--username", "-u", required=True, help="Username for authentication.")
     parser.add_argument("--password", "-p", help="Password for NTLM authentication.")
     parser.add_argument("--nthash", "-H", help="NT hash for NTLM authentication.")
@@ -190,9 +193,10 @@ if __name__ == "__main__":
     parser.add_argument("--computer-pass", help="Password for the new computer account.")
     parser.add_argument('--delete',default=False,action='store_true', help='Delete an existing computer.')
 
+    print(invoke_ascii_art())
     args = parser.parse_args()
 
-    print(invoke_ascii_art())
+    
 
     try:
         conn = ldap_authentication(args.dc_host, args.ldap_encryption, args.username, args.password, args.nthash, args.domain, args.kerberos)
