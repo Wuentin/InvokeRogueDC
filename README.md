@@ -28,8 +28,7 @@
         Made by Wuentin
 
 
-usage: DC.py [-h] --dc-host DC_HOST [--ldap-encryption {ldaps,ldap-starttls}] --username USERNAME [--password PASSWORD] [--nthash NTHASH] --domain DOMAIN [--kerberos] --computer COMPUTER
-             [--computer-pass COMPUTER_PASS] [--delete]
+usage: asciipy [-h] --dc-host DC_HOST [--ldap-encryption {ldaps,ldap-starttls}] --username USERNAME [--password PASSWORD] [--nthash NTHASH] [--aesKey AESKEY] --domain DOMAIN [--kerberos] --computer COMPUTER [--computer-pass COMPUTER_PASS] [--delete]
 
 Create a computer account that will act as a domain controller.
 
@@ -37,22 +36,23 @@ options:
   -h, --help            show this help message and exit
   --dc-host DC_HOST     Domain Controller.
   --ldap-encryption {ldaps,ldap-starttls}
-                        LDAP encryption method (Default : ldap-starttls).
+                        LDAP encryption method (Default : ldaps).
   --username USERNAME, -u USERNAME
                         Username for authentication.
   --password PASSWORD, -p PASSWORD
-                        Password for NTLM authentication.
+                        Password for authentication.
   --nthash NTHASH, -H NTHASH
-                        NT hash for NTLM authentication.
+                        NT hash for authentication.
+  --aesKey AESKEY       AES key to use for Kerberos Authentication.
   --domain DOMAIN, -d DOMAIN
                         Domain name for authentication.
-  --kerberos, -k        Use Kerberos authentication instead NTLM. NOT YET IMPLEMENTED!
+  --kerberos, -k        Use Kerberos authentication instead NTLM.
   --computer COMPUTER   Name of the computer to create in LDAP.
   --computer-pass COMPUTER_PASS
                         Password for the new computer account.
   --delete              Delete an existing computer.
-         Delete an existing computer.
 
+                                                           
 ```
 
 # Purpose
