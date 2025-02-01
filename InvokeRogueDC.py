@@ -267,7 +267,7 @@ if __name__ == "__main__":
     parser.add_argument("--username", "-u", required=True, help="Username for authentication.")
     parser.add_argument("--password", "-p", help="Password for authentication.")
     parser.add_argument("--nthash", "-H",default='',help="NT hash for authentication.")
-    parser.add_argument("--aesKey", help="AES key to use for Kerberos Authentication")
+    parser.add_argument("--aesKey", help="AES key to use for Kerberos Authentication.")
     parser.add_argument("--domain", "-d", required=True, help="Domain name for authentication.")
     parser.add_argument("--kerberos","-k", default=False,action='store_true', help="Use Kerberos authentication instead NTLM.")
     parser.add_argument("--computer", required=True, help="Name of the computer to create in LDAP.")
