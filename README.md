@@ -61,7 +61,6 @@ Use of this tool requires elevated domain privileges.
 
 # ToDo
 
-- Enumerate other DC.
 - SAMR?
 
 # Ethical Only
