@@ -47,7 +47,7 @@ options:
   --domain DOMAIN, -d DOMAIN
                         Domain name for authentication.
   --kerberos, -k        Use Kerberos authentication instead NTLM.
-  --computer COMPUTER   Name of the computer to create in LDAP.
+  --computer COMPUTER   Name of the computer to create. If not specified, it will list the DCs using LDAP and then ask for a name.
   --computer-pass COMPUTER_PASS
                         Password for the new computer account.
   --delete              Delete an existing computer.
