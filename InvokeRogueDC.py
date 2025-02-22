@@ -163,6 +163,25 @@ def ldap_computer_exist(conn, computer_name, domain):
         return conn.entries[0].distinguishedName.value
     return None
 
+def ldap_enumerate_DC(conn, domain):
+    """
+    Enumeration of domain controllers. 
+    """
+    search_base = ','.join([f"DC={part}" for part in domain.split('.')])
+    search_filter = f'(&(objectCategory=Computer)(userAccountControl:1.2.840.113556.1.4.803:=8192))'
+    conn.search(
+        search_base=search_base,
+        search_filter=search_filter,
+        search_scope=SUBTREE,
+        attributes=['distinguishedName']
+    )
+    for dc in conn.entries:
+
+        print("\t- "+dc.distinguishedName.value.split(',')[0].split('=')[1]+"$")
+        
+        
+    return
+
 def ldap_create_computer(conn, computer_name, computer_pass, domain):
     """
     Create a new computer account in the LDAP directory.
@@ -227,6 +246,15 @@ def delete_computer(conn,computer_name,domain):
     except Exception as e:
         print(f"[-] Failed to delete computer account: {e}")
 
+def ask_for_computer_name():
+    while True:
+        user_input = input("[*] Name of the computer to create\n")
+        if user_input.strip():  
+            return user_input
+        else:
+            print("[ ! ] The entry cannot be empty. Please try again.")
+
+
 def invoke_ascii_art():
     ascii_art=r"""
 
@@ -270,7 +298,7 @@ if __name__ == "__main__":
     parser.add_argument("--aesKey", help="AES key to use for Kerberos Authentication.")
     parser.add_argument("--domain", "-d", required=True, help="Domain name for authentication.")
     parser.add_argument("--kerberos","-k", default=False,action='store_true', help="Use Kerberos authentication instead NTLM.")
-    parser.add_argument("--computer", required=True, help="Name of the computer to create in LDAP.")
+    parser.add_argument("--computer", help="Name of the computer to create. If not specified, it will list the DCs using LDAP and then ask for a name.")
     parser.add_argument("--computer-pass", help="Password for the new computer account.")
     parser.add_argument('--delete',default=False,action='store_true', help='Delete an existing computer.')
 
@@ -283,6 +311,14 @@ if __name__ == "__main__":
         conn = ldap_authentication(args.dc_host, args.ldap_encryption, args.username, args.password, args.nthash, args.aesKey, args.domain, args.kerberos)
         if conn:
             print("[+] Successfully connected to the LDAP server.")
+            
+            if (args.computer is None):
+                # Computer name not specified, so we will list the DCs using LDAP and then ask for a computer name.
+                print("[ ! ] Computer name not specified")
+                print("[+] Enumeration of domains controllers:")
+                ldap_enumerate_DC(conn,args.domain)
+                args.computer=ask_for_computer_name()
+
             if (args.delete):
                 # Check if the computer already exists
                 computer_dn = ldap_computer_exist(conn, args.computer.replace("$", ""), args.domain)
