@@ -28,7 +28,7 @@
         Made by Wuentin
 
 
-usage: asciipy [-h] --dc-host DC_HOST [--ldap-encryption {ldaps,ldap-starttls}] --username USERNAME [--password PASSWORD] [--nthash NTHASH] [--aesKey AESKEY] --domain DOMAIN [--kerberos] --computer COMPUTER [--computer-pass COMPUTER_PASS] [--delete]
+usage: InvokeRogueDC.py [-h] --dc-host DC_HOST [--ldap-encryption {ldaps,ldap-starttls}] --username USERNAME [--password PASSWORD] [--nthash NTHASH] [--aesKey AESKEY] --domain DOMAIN [--kerberos] --computer COMPUTER [--computer-pass COMPUTER_PASS] [--delete]
 
 Create a computer account that will act as a domain controller.
 
