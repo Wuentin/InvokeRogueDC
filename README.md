@@ -56,7 +56,7 @@ options:
 ```
 
 # Purpose
-InvokeRogueDC aims to automate the creation of a machine account functioning as a domain controller. Domain controllers have DCSync rights, enabling persistence within the domain and bypassing certain detection rules.
+InvokeRogueDC aims to automate the creation of a domain controller machine account. Domain controllers have DCSync rights, enabling persistence within the domain and bypassing certain detection rules.
 Use of this tool requires elevated domain privileges.
 
 # ToDo
