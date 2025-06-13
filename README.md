@@ -58,6 +58,8 @@ options:
 # Purpose
 InvokeRogueDC aims to automate the creation of a domain controller machine account. Domain controllers have DCSync rights, enabling persistence within the domain and bypassing certain detection rules.
 Use of this tool requires elevated domain privileges.
+# Detection
+One way to detect this attack is by simply monitoring the creation of machine accounts and checking whether the newly created account is part of the Domain Controllers group. You can rely on Event ID 4741, which logs the creation of a computer account, and check if the created account is a member of the Domain Controllers group (516).
 
 # ToDo
 
